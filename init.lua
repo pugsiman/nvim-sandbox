@@ -251,11 +251,8 @@ require('lazy').setup({
         end,
       },
     },
-    {
-      'mhartington/formatter.nvim',
-      lazy = false
-    },
   },
+
 
   {
     -- Highlight, edit, and navigate code
