@@ -251,6 +251,10 @@ require('lazy').setup({
         end,
       },
     },
+    {
+      'mhartington/formatter.nvim',
+      lazy = false
+    },
   },
 
   {
@@ -288,7 +292,7 @@ vim.o.hlsearch = false
 vim.opt.number = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.opt.mouse = 'a'
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
