@@ -253,6 +253,9 @@ require('lazy').setup({
     },
   },
 
+  {
+    'nvim-telescope/telescope-file-browser.nvim'
+  },
 
   {
     -- Highlight, edit, and navigate code
@@ -262,6 +265,8 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+
+
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -408,6 +413,7 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
+vim.keymap.set("n", "<space>fb", ":Telescope file_browser<CR>", { noremap = true })
 
 local function telescope_live_grep_open_files()
   require('telescope.builtin').live_grep {
