@@ -204,6 +204,9 @@ require('lazy').setup({
       options = {
         icons_enabled = 'true',
         theme = 'tokyonight',
+        disabled_filetypes = {
+          statusline = {'NvimTree'}
+        }
       },
     },
   },
@@ -216,17 +219,32 @@ require('lazy').setup({
       "nvim-tree/nvim-web-devicons"
     },
     config = function()
-      require("nvim-tree").setup {}
+      require("nvim-tree").setup {
+        hijack_cursor = false,
+        on_attach = function(bufnr)
+          local bufmap = function(lhs, rhs, desc)
+            vim.keymap.set('n', lhs, rhs, {buffer = bufnr, desc = desc})
+          end
+
+          -- See :help nvim-tree.api
+          local api = require('nvim-tree.api')
+
+          bufmap('L', api.node.open.edit, 'Expand folder or go to file')
+          bufmap('H', api.node.navigate.parent_close, 'Close parent folder')
+          bufmap('gh', api.tree.toggle_hidden_filter, 'Toggle hidden files')
+        end
+      }
     end
   },
 
   {
     -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
+      'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',
-    opts = {},
+    opts = {
+    },
   },
 
   -- "gc" to comment visual regions/lines
@@ -293,6 +311,8 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 vim.cmd.colorscheme('tokyonight')
+vim.opt.showmode = false
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -349,6 +369,7 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'Toggle Nvim-Tree' })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
