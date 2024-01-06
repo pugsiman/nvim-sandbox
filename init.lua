@@ -73,6 +73,8 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
 
+  'tpope/vim-repeat',
+
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
@@ -449,7 +451,7 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-vim.keymap.set("n", "<space>fb", ":Telescope file_browser<CR>", { noremap = true })
+vim.keymap.set('n', '<space>fb', ':Telescope file_browser<CR>', { noremap = true })
 
 local function telescope_live_grep_open_files()
   require('telescope.builtin').live_grep {
