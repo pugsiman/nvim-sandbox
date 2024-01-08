@@ -195,7 +195,7 @@ require('lazy').setup({
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
-    opts = {},
+    config = function() vim.cmd.colorscheme("tokyonight") end,
   },
 
   {
@@ -317,7 +317,7 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
 }, {})
-vim.cmd.colorscheme('tokyonight')
+
 vim.opt.showmode = false
 
 -- [[ Setting options ]]
@@ -618,10 +618,18 @@ require('mason-lspconfig').setup()
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
+  pyright = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = "openFilesOnly",
+        useLibraryCodeForTypes = true
+      }
+    },
+  },
   -- rust_analyzer = {},
   -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
     Lua = {
